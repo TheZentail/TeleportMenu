@@ -1,0 +1,11 @@
+## Interface: 110002
+## Title: Teleport Menu
+## Notes: A menu for various game teleports.
+## Version: 1.0
+## Author: Zentail
+## IconTexture: interface\icons\spell_animabastion_nova
+## SavedVariables: TeleportMenuDB
+## AddonCompartmentFunc: TeleportMenuMiniButtonClick
+
+TeleportData.lua
+TeleportMenu.lua
