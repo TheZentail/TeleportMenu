@@ -330,3 +330,30 @@ TeleportData["Pathways"] = {
         }
     }
 }
+
+TeleportData["Hearthstones"] = {
+    ["Brewfest Reveler's Hearthstone"] = 166747,
+    ["Broker Translocation Matrix"] = 190237,
+    ["Deepdweller's Earthen Hearthstone"] = 208704,
+    ["Dominated Hearthstone"] = 162973,
+    ["Enlightened Hearthstone"] = 190196,
+    ["Eternal Traveler's Hearthstone"] = 172179,
+    ["Ethereal Portal"] = 54452,
+    ["Fire Eater's Hearthstone"] = 166746,
+    ["Greatfather Winter's Hearthstone"] = 162973,
+    ["Headless Horseman's Hearthstone"] = 163045,
+    ["Hearthstone"] = 6948,
+    ["Hearthstone of the Flame"] = 209035,
+    ["Holographic Digitalization Hearthstone"] = 168907,
+    ["The Innkeeper's Daughter"] = 64488,
+    ["Kyrian Hearthstone"] = 184353,
+    ["Lunar Elder's Hearthstone"] = 165669,
+    ["Necrolord Hearthstone"] = 182773,
+    ["Night Fae Hearthstone"] = 180290,
+    ["Noble Gardener's Hearthstone"] = 165802,
+    ["Ohn'ir Windsage's Hearthstone"] = 200630,
+    ["Peedlefeet's Lovely Hearthstone"] = 165670,
+    -- ["Stone of the Hearth"] = 212337, -- currently not sharing cooldown with others
+    ["Timewalker's Hearthstone"] = 193588,
+    ["Venthyr Sinstone"] = 183716
+}

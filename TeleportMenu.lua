@@ -1,3 +1,5 @@
+TeleportMenu = TeleportMenu or {}
+
 -- local scrollable = true
 local posX, posY = 450, 0
 
@@ -91,6 +93,11 @@ function ExpansionHasRaids(category)
     end
 end
 
+-- takes itemID or itemName
+function HasItem(item)
+    return C_Item.GetItemCount(item) > 0
+end
+
 function CreateSpellButton(menu, btnName, spellName)
     local btnFrame = menu:CreateTemplate("SecureActionButtonTemplate")
     btnFrame:AddInitializer(function(btn, desc, menu)
@@ -128,6 +135,8 @@ end)
 
 Dropdown:SetupMenu(function(dropdown, rootDescription)
     ----- HEARTHSTONE -----
+    CreateSpellButton(rootDescription, "Hearthstone", "Greatfather Winter's Hearthstone")
+    CreateSpellButton(rootDescription, "Stone Hearth", "Stone of the Hearth")
 
     ----- DUNGEONS -----
     if HasAnyDungeons() then
@@ -199,6 +208,13 @@ Dropdown:SetupMenu(function(dropdown, rootDescription)
             end
         end
     end
+
+    ----- OTHER -----
+    local other = rootDescription:CreateButton("Other")
+    CreateSpellButton(other, "Garrison", "Garrison Hearthstone")
+    CreateSpellButton(other, "Dalaran", "Dalaran Hearthstone")
+    CreateSpellButton(other, "Blackrock Depths", "Direbrew's Remote")
+    CreateSpellButton(other, "Stormsong Valley", "Lucky Tortollan Charm")
 end)
 
 function TeleportMenuMiniButtonClick()
