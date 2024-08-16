@@ -118,25 +118,46 @@ function CreateSpellButton(menu, btnName, spellName)
     end)
 end
 
-local Dropdown = CreateFrame("DropdownButton", nil, UIParent, "WowStyle1DropdownTemplate")
-Dropdown:SetDefaultText("Teleports")
-Dropdown:SetPoint("BOTTOMLEFT", posX, posY)
-Dropdown:SetMovable(true)
-Dropdown:EnableMouse(true)
-Dropdown:RegisterForDrag("LeftButton")
-Dropdown:SetScript("OnDragStart", Dropdown.StartMoving)
-Dropdown:SetScript("OnDragStop", Dropdown.StopMovingOrSizing)
-Dropdown:SetClampedToScreen(true)
+function GetHearthstone()
+    if (HasItem("Hearthstone")) then
+        return "Hearthstone"
+    else
+        for name, id in pairs(TeleportData["Hearthstones"]) do
+            if (PlayerHasToy(id)) then
+                return name
+            end
+        end
+    end
 
--- on Dropdown mouseover, hide any current tooltips
-Dropdown:SetScript("OnEnter", function(self)
-    GameTooltip:Hide()
-end)
+    return "No Stone Found"
+end
 
-Dropdown:SetupMenu(function(dropdown, rootDescription)
+function CreateHearthstoneButton(menu)
+    local hearthstone = GetHearthstone()
+    if (hearthstone == "No Stone Found") then
+        print("none found")
+        return
+    end
+
+    local btnFrame = menu:CreateTemplate("SecureActionButtonTemplate")
+    btnFrame:AddInitializer(function(btn, desc, menu)
+        btn:SetText("Hearthstone")
+        btn:GetFontString():SetPoint("LEFT", 0, 0)
+        btn:SetNormalFontObject("GameFontNormal")
+        btn:SetHighlightFontObject("GameFontHighlight")
+        btn:SetAttribute("type", "macro")
+        btn:SetAttribute("macrotext", "/cast " .. hearthstone)
+        btn:RegisterForClicks("AnyUp", "AnyDown")
+        local width = btn:GetFontString():GetStringWidth() - 20
+        local height = 20
+        btn:SetSize(width, height)
+    end)
+end
+
+function BuildMenu(dropdown, rootDescription)
     ----- HEARTHSTONE -----
-    CreateSpellButton(rootDescription, "Hearthstone", "Greatfather Winter's Hearthstone")
-    CreateSpellButton(rootDescription, "Stone Hearth", "Stone of the Hearth")
+    CreateHearthstoneButton(rootDescription)
+    if (PlayerHasToy(212337)) then CreateSpellButton(rootDescription, "Stone Hearth", "Stone of the Hearth") end
 
     ----- DUNGEONS -----
     if HasAnyDungeons() then
@@ -211,12 +232,32 @@ Dropdown:SetupMenu(function(dropdown, rootDescription)
 
     ----- OTHER -----
     local other = rootDescription:CreateButton("Other")
-    CreateSpellButton(other, "Garrison", "Garrison Hearthstone")
-    CreateSpellButton(other, "Dalaran", "Dalaran Hearthstone")
-    CreateSpellButton(other, "Blackrock Depths", "Direbrew's Remote")
-    CreateSpellButton(other, "Stormsong Valley", "Lucky Tortollan Charm")
+    if (PlayerHasToy(110560)) then CreateSpellButton(other, "Garrison", "Garrison Hearthstone") end
+    if (HasItem("Admiral's Compass")) then CreateSpellButton(other, "Garrison Shipyard", "Admiral's Compass") end
+    if (PlayerHasToy(140192)) then CreateSpellButton(other, "Dalaran", "Dalaran Hearthstone") end
+    if (HasItem("Direbrew's Remote")) then CreateSpellButton(other, "Blackrock Depths", "Direbrew's Remote") end
+    if (HasItem("Lucky Tortollan Charm")) then CreateSpellButton(other, "Stormsong Valley", "Lucky Tortollan Charm") end
+end
+
+local Dropdown = CreateFrame("DropdownButton", nil, UIParent, "WowStyle1DropdownTemplate")
+Dropdown:SetDefaultText("Teleports")
+Dropdown:SetPoint("BOTTOMLEFT", posX, posY)
+Dropdown:SetMovable(true)
+Dropdown:EnableMouse(true)
+Dropdown:RegisterForDrag("LeftButton")
+Dropdown:SetScript("OnDragStart", Dropdown.StartMoving)
+Dropdown:SetScript("OnDragStop", Dropdown.StopMovingOrSizing)
+Dropdown:SetClampedToScreen(true)
+
+-- on Dropdown mouseover, hide any current tooltips
+Dropdown:SetScript("OnEnter", function(self)
+    GameTooltip:Hide()
 end)
 
-function TeleportMenuMiniButtonClick()
-    print("Mini button")
-end
+Dropdown:SetupMenu(BuildMenu)
+
+
+
+-- function TeleportMenuMiniButtonClick(data)
+--     print("Mini button")
+-- end

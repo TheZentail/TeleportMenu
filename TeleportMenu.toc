@@ -5,7 +5,7 @@
 ## Author: Zentail
 ## IconTexture: interface\icons\spell_animabastion_nova
 ## SavedVariables: TeleportMenuDB
-## AddonCompartmentFunc: TeleportMenuMiniButtonClick
+# ## AddonCompartmentFunc: TeleportMenuMiniButtonClick
 
 TeleportData.lua
 TeleportMenu.lua
