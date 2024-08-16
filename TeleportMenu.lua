@@ -103,9 +103,6 @@ function CreateSpellButton(menu, btnName, spellName)
     btnFrame:AddInitializer(function(btn, desc, menu)
         btn:SetText(btnName)
         btn:GetFontString():SetPoint("LEFT", 0, 0)
-        local width = btn:GetFontString():GetStringWidth() - 20
-        local height = 20
-        btn:SetSize(width, height)
         btn:SetNormalFontObject("GameFontNormal")
         btn:SetHighlightFontObject("GameFontHighlight")
         -- btn:SetNormalTexture("Interface/Buttons/UI-Panel-Button-Up")
@@ -115,6 +112,9 @@ function CreateSpellButton(menu, btnName, spellName)
         btn:SetAttribute("type", "macro")
         btn:SetAttribute("macrotext", "/cast " .. spellName)
         btn:RegisterForClicks("AnyUp", "AnyDown")
+        local width = btn:GetFontString():GetStringWidth() - 20
+        local height = 20
+        btn:SetSize(width, height)
     end)
 end
 
