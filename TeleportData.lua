@@ -334,6 +334,7 @@ TeleportData["Pathways"] = {
 TeleportData["Hearthstones"] = {
     ["Brewfest Reveler's Hearthstone"] = 166747,
     ["Broker Translocation Matrix"] = 190237,
+    ["Dark Portal"] = 93672,
     ["Deepdweller's Earthen Hearthstone"] = 208704,
     ["Dominated Hearthstone"] = 162973,
     ["Enlightened Hearthstone"] = 190196,
@@ -356,4 +357,311 @@ TeleportData["Hearthstones"] = {
     -- ["Stone of the Hearth"] = 212337, -- currently not sharing cooldown with others
     ["Timewalker's Hearthstone"] = 193588,
     ["Venthyr Sinstone"] = 183716
+}
+
+TeleportData["ClassPorts"] = {
+    ["Mage"] = {
+        ["Teleports"] = {
+            [1] = {
+                ["Spell"] = "Teleport: Darnassus",
+                ["Location"] = "Darnassus",
+                ["SpellID"] = 3561
+            },
+            [2] = {
+                ["Spell"] = "Teleport: Exodar",
+                ["Location"] = "Exodar",
+                ["SpellID"] = 32266
+            },
+            [3] = {
+                ["Spell"] = "Teleport: Ironforge",
+                ["Location"] = "Ironforge",
+                ["SpellID"] = 3562
+            },
+            [4] = {
+                ["Spell"] = "Teleport: Orgrimmar",
+                ["Location"] = "Orgrimmar",
+                ["SpellID"] = 3567
+            },
+            [5] = {
+                ["Spell"] = "Teleport: Silvermoon",
+                ["Location"] = "Silvermoon",
+                ["SpellID"] = 32272
+            },
+            [6] = {
+                ["Spell"] = "Teleport: Stormwind",
+                ["Location"] = "Stormwind",
+                ["SpellID"] = 3561
+            },
+            [7] = {
+                ["Spell"] = "Teleport: Theramore",
+                ["Location"] = "Theramore",
+                ["SpellID"] = 49359
+            },
+            [8] = {
+                ["Spell"] = "Teleport: Thunder Bluff",
+                ["Location"] = "Thunder Bluff",
+                ["SpellID"] = 3566
+            },
+            [9] = {
+                ["Spell"] = "Teleport: Undercity",
+                ["Location"] = "Undercity",
+                ["SpellID"] = 3563
+            },
+            [10] = {
+                ["Spell"] = "Teleport: Stonard",
+                ["Location"] = "Stonard",
+                ["SpellID"] = 49361
+            },
+            [11] = {
+                ["Spell"] = "Teleport: Shattrath",
+                ["Location"] = "Shattrath",
+                ["SpellID"] = 33691
+            },
+            [12] = {
+                ["Spell"] = "Teleport: Dalaran - Northrend",
+                ["Location"] = "Dalaran - Northrend",
+                ["SpellID"] = 53140
+            },
+            [13] = {
+                ["Spell"] = "Ancient Teleport: Dalaran",
+                ["Location"] = "Ancient Dalaran",
+                ["SpellID"] = 120146
+            },
+            [14] = {
+                ["Spell"] = "Teleport: Tol Barad",
+                ["Location"] = "Tol Barad",
+                ["SpellID"] = 88342
+            },
+            [15] = {
+                ["Spell"] = "Teleport: Vale of Eternal Blossoms",
+                ["Location"] = "Vale of Eternal Blossoms",
+                ["SpellID"] = 132621
+            },
+            [16] = {
+                ["Spell"] = "Teleport: Stormshield",
+                ["Location"] = "Stormshield",
+                ["SpellID"] = 176246
+            },
+            [17] = {
+                ["Spell"] = "Teleport: Warspear",
+                ["Location"] = "Warspear",
+                ["SpellID"] = 176248
+            },
+            [18] = {
+                ["Spell"] = "Teleport: Dalaran - Broken Isles",
+                ["Location"] = "Dalaran - Broken Isles",
+                ["SpellID"] = 224869
+            },
+            [19] = {
+                ["Spell"] = "Teleport: Boralus",
+                ["Location"] = "Boralus",
+                ["SpellID"] = 281403
+            },
+            [20] = {
+                ["Spell"] = "Teleport: Dazar'alor",
+                ["Location"] = "Dazar'alor",
+                ["SpellID"] = 281404
+            },
+            [21] = {
+                ["Spell"] = "Teleport: Oribos",
+                ["Location"] = "Oribos",
+                ["SpellID"] = 344587
+            },
+            [22] = {
+                ["Spell"] = "Teleport: Valdrakken",
+                ["Location"] = "Valdrakken",
+                ["SpellID"] = 395277
+            }
+        },
+        ["Portals"] = {
+            [1] = {
+                ["Spell"] = "Portal: Darnassus",
+                ["Location"] = "Darnassus",
+                ["SpellID"] = 11419
+            },
+            [2] = {
+                ["Spell"] = "Portal: Exodar",
+                ["Location"] = "Exodar",
+                ["SpellID"] = 32267
+            },
+            [3] = {
+                ["Spell"] = "Portal: Ironforge",
+                ["Location"] = "Ironforge",
+                ["SpellID"] = 11416
+            },
+            [4] = {
+                ["Spell"] = "Portal: Orgrimmar",
+                ["Location"] = "Orgrimmar",
+                ["SpellID"] = 11417
+            },
+            [5] = {
+                ["Spell"] = "Portal: Silvermoon",
+                ["Location"] = "Silvermoon",
+                ["SpellID"] = 32271
+            },
+            [6] = {
+                ["Spell"] = "Portal: Stormwind",
+                ["Location"] = "Stormwind",
+                ["SpellID"] = 10059
+            },
+            [7] = {
+                ["Spell"] = "Portal: Theramore",
+                ["Location"] = "Theramore",
+                ["SpellID"] = 49360
+            },
+            [8] = {
+                ["Spell"] = "Portal: Thunder Bluff",
+                ["Location"] = "Thunder Bluff",
+                ["SpellID"] = 11420
+            },
+            [9] = {
+                ["Spell"] = "Portal: Undercity",
+                ["Location"] = "Undercity",
+                ["SpellID"] = 11418
+            },
+            [10] = {
+                ["Spell"] = "Portal: Stonard",
+                ["Location"] = "Stonard",
+                ["SpellID"] = 49362
+            },
+            [11] = {
+                ["Spell"] = "Portal: Shattrath",
+                ["Location"] = "Shattrath",
+                ["SpellID"] = 33690
+            },
+            [12] = {
+                ["Spell"] = "Portal: Dalaran - Northrend",
+                ["Location"] = "Dalaran - Northrend",
+                ["SpellID"] = 53142
+            },
+            [13] = {
+                ["Spell"] = "Ancient Portal: Dalaran",
+                ["Location"] = "Ancient Dalaran",
+                ["SpellID"] = 120145
+            },
+            [14] = {
+                ["Spell"] = "Portal: Tol Barad",
+                ["Location"] = "Tol Barad",
+                ["SpellID"] = 88345
+            },
+            [15] = {
+                ["Spell"] = "Portal: Vale of Eternal Blossoms",
+                ["Location"] = "Vale of Eternal Blossoms",
+                ["SpellID"] = 132620
+            },
+            [16] = {
+                ["Spell"] = "Portal: Stormshield",
+                ["Location"] = "Stormshield",
+                ["SpellID"] = 176248
+            },
+            [17] = {
+                ["Spell"] = "Portal: Warspear",
+                ["Location"] = "Warspear",
+                ["SpellID"] = 176249
+            },
+            [18] = {
+                ["Spell"] = "Portal: Dalaran - Broken Isles",
+                ["Location"] = "Dalaran - Broken Isles",
+                ["SpellID"] = 224871
+            },
+            [19] = {
+                ["Spell"] = "Portal: Boralus",
+                ["Location"] = "Boralus",
+                ["SpellID"] = 281404
+            },
+            [20] = {
+                ["Spell"] = "Portal: Dazar'alor",
+                ["Location"] = "Dazar'alor",
+                ["SpellID"] = 281404
+            },
+            [21] = {
+                ["Spell"] = "Portal: Oribos",
+                ["Location"] = "Oribos",
+                ["SpellID"] = 344589
+            },
+            [22] = {
+                ["Spell"] = "Portal: Valdrakken",
+                ["Location"] = "Valdrakken",
+                ["SpellID"] = 395289
+            }
+        }
+    }
+}
+
+TeleportData["DruidPorts"] = {
+    --
+}
+
+TeleportData["MonkPorts"] = {
+    -- zen pilgrimage
+}
+
+TeleportData["Engineering"] = {
+    ["Shadowlands Engineering"] = {
+        {
+            ["ItemID"] = 180732,
+            ["ItemName"] = "Wormhole Generator: Shadowlands",
+            ["Display"] = "Shadowlands Wormhole",
+            ["SkillReq"] = 1
+        }
+    }
+}
+
+TeleportData["Other"] = {
+    ["Items"] = {
+        {
+            ["Name"] = "Admiral's Compass",
+            ["ItemID"] = 128353,
+            ["Location"] = "Garrison Shipyard"
+        },
+        {
+            ["Name"] = "Direbrew's Remote",
+            ["ItemID"] = 37863,
+            ["Location"] = "Blackrock Depths"
+        },
+        {
+            ["Name"] = "Lucky Tortollan Charm",
+            ["ItemID"] = 202046,
+            ["Location"] = "Stormsong Valley"
+        },
+        {
+            ["Name"] = "The Last Relic of Argus",
+            ["ItemID"] = 64457,
+            ["Location"] = "Random EK/Kalimdor"
+        }
+    },
+    ["Toys"] = {
+        {
+            ["Name"] = "Dalaran Hearthstone",
+            ["ItemID"] = 140192,
+            ["Location"] = "Dalaran - Broken Isles"
+        },
+        {
+            ["Name"] = "Garrison Hearthstone",
+            ["ItemID"] = 110560,
+            ["Location"] = "Garrison"
+        }
+    },
+    ["Equips"] = {
+        {
+            ["Name"] = "Band of the Kirin Tor",
+            ["ItemID"] = 40586,
+            ["Location"] = "Dalaran - Northrend"
+        },
+        {
+            ["Name"] = "Cloak of Coordination",
+            ["ItemID"] = 65274,
+            ["Location"] = "Orgrimmar"
+        },
+        {
+            ["Name"] = "Cloak of Coordination",
+            ["ItemID"] = 65360,
+            ["Location"] = "Stormwind"
+        },
+        {
+            ["Name"] = "Ruby Slippers",
+            ["ItemID"] = 28585,
+            ["Location"] = "Hearthstone"
+        }
+    }
 }

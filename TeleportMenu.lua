@@ -51,6 +51,38 @@ function HasAnyRaids()
     end
 end
 
+function HasAnyOther()
+    local hasTypes = {
+        ["Items"] = false,
+        ["Equips"] = false,
+        ["Toys"] = false
+    }
+
+    for typ, data in pairs(TeleportData["Other"]) do
+        for _, item in ipairs(data) do
+            if typ == "Items" or typ == "Equips" then
+                if HasItem(item["Name"]) then
+                    if typ == "Items" then
+                        hasTypes["Items"] = true
+                    elseif typ == "Equips" then
+                        hasTypes["Equips"] = true
+                    end
+                end
+            elseif typ == "Toys" then
+                if HasToy(item["ItemID"]) then
+                    hasTypes["Toys"] = true
+                end
+            end
+        end
+    end
+
+    return hasTypes
+end
+
+function HasAnyEngineering()
+    return true
+end
+
 function HasCurrentSeasonDungeons()
     for _, dungeonName in ipairs(TeleportData["Current Season"]["Dungeons"]) do
         for _, expansions in ipairs(TeleportData["Pathways"]) do
@@ -98,7 +130,33 @@ function HasItem(item)
     return C_Item.GetItemCount(item) > 0
 end
 
-function CreateSpellButton(menu, btnName, spellName)
+-- seems to take spell ID or name
+function HasSpell(spell)
+    return C_Spell.DoesSpellExist(spell)
+end
+
+-- take item id
+function HasToy(itemID)
+    return PlayerHasToy(itemID)
+end
+
+function GetHearthstone()
+    if (HasItem("Hearthstone")) then
+        return "Hearthstone"
+    else
+        for name, id in pairs(TeleportData["Hearthstones"]) do
+            if (PlayerHasToy(id)) then
+                return name
+            end
+        end
+    end
+
+    return "No Stone Found"
+end
+
+function CreateTeleButton(menu, btnType, btnName, spellName)
+    -- will add thorough support for btnType later
+
     local btnFrame = menu:CreateTemplate("SecureActionButtonTemplate")
     btnFrame:AddInitializer(function(btn, desc, menu)
         btn:SetText(btnName)
@@ -116,20 +174,6 @@ function CreateSpellButton(menu, btnName, spellName)
         local height = 20
         btn:SetSize(width, height)
     end)
-end
-
-function GetHearthstone()
-    if (HasItem("Hearthstone")) then
-        return "Hearthstone"
-    else
-        for name, id in pairs(TeleportData["Hearthstones"]) do
-            if (PlayerHasToy(id)) then
-                return name
-            end
-        end
-    end
-
-    return "No Stone Found"
 end
 
 function CreateHearthstoneButton(menu)
@@ -159,6 +203,10 @@ function BuildMenu(dropdown, rootDescription)
     CreateHearthstoneButton(rootDescription)
     if (PlayerHasToy(212337)) then CreateSpellButton(rootDescription, "Stone Hearth", "Stone of the Hearth") end
 
+    if HasAnyDungeons() or HasAnyRaids() then
+        rootDescription:CreateDivider()
+    end
+
     ----- DUNGEONS -----
     if HasAnyDungeons() then
         local dungeons = rootDescription:CreateButton("Dungeons")
@@ -171,7 +219,7 @@ function BuildMenu(dropdown, rootDescription)
                         for _, dungeon in ipairs(expansions["Dungeons"]) do
                             if dungeon["Name"] == dungeonName then
                                 if C_Spell.DoesSpellExist(dungeon["Spell"]) then
-                                    CreateSpellButton(current, dungeon["Name"], dungeon["Spell"])
+                                    CreateTeleButton(current, "Spell", dungeon["Name"], dungeon["Spell"])
                                 end
                             end
                         end
@@ -187,7 +235,7 @@ function BuildMenu(dropdown, rootDescription)
                     local xpac = dungeons:CreateButton(expansions["Expansion"])
                     for _, dungeon in ipairs(expansions["Dungeons"]) do
                         if C_Spell.DoesSpellExist(dungeon["Spell"]) then
-                            CreateSpellButton(xpac, dungeon["Name"], dungeon["Spell"])
+                            CreateTeleButton(xpac, "Spell", dungeon["Name"], dungeon["Spell"])
                         end
                     end
                 end
@@ -206,7 +254,7 @@ function BuildMenu(dropdown, rootDescription)
                         for _, raid in ipairs(expansions["Raids"]) do
                             if raid["Name"] == raidName then
                                 if C_Spell.DoesSpellExist(raid["Spell"]) then
-                                    CreateSpellButton(current, raid["Name"], raid["Spell"])
+                                    CreateTeleButton(current, "Spell", raid["Name"], raid["Spell"])
                                 end
                             end
                         end
@@ -222,7 +270,7 @@ function BuildMenu(dropdown, rootDescription)
                     local xpac = raids:CreateButton(expansions["Expansion"])
                     for _, raid in ipairs(expansions["Raids"]) do
                         if C_Spell.DoesSpellExist(raid["Spell"]) then
-                            CreateSpellButton(xpac, raid["Name"], raid["Spell"])
+                            CreateTeleButton(xpac, "Spell", raid["Name"], raid["Spell"])
                         end
                     end
                 end
@@ -231,12 +279,70 @@ function BuildMenu(dropdown, rootDescription)
     end
 
     ----- OTHER -----
-    local other = rootDescription:CreateButton("Other")
-    if (PlayerHasToy(110560)) then CreateSpellButton(other, "Garrison", "Garrison Hearthstone") end
-    if (HasItem("Admiral's Compass")) then CreateSpellButton(other, "Garrison Shipyard", "Admiral's Compass") end
-    if (PlayerHasToy(140192)) then CreateSpellButton(other, "Dalaran", "Dalaran Hearthstone") end
-    if (HasItem("Direbrew's Remote")) then CreateSpellButton(other, "Blackrock Depths", "Direbrew's Remote") end
-    if (HasItem("Lucky Tortollan Charm")) then CreateSpellButton(other, "Stormsong Valley", "Lucky Tortollan Charm") end
+    local hasOtherTypes = HasAnyOther()
+    local hasAnyOtherType = false
+    local numOtherTypes = 0
+
+    for _, val in pairs(hasOtherTypes) do
+        if val then
+            hasAnyOtherType = true
+            numOtherTypes = numOtherTypes + 1
+        end
+    end
+
+    if hasAnyOtherType then
+        rootDescription:CreateDivider()
+        local other = rootDescription:CreateButton("Other")
+
+        for typ, data in pairs(TeleportData["Other"]) do
+            for _, item in ipairs(data) do
+                if hasOtherTypes[typ] then
+                    if HasItem(item["ItemID"]) or HasToy(item["ItemID"]) then
+                        CreateTeleButton(other, typ, item["Location"], item["Name"])
+                    end
+                end
+            end
+
+            if numOtherTypes > 1 then
+                other:CreateDivider()
+                numOtherTypes = numOtherTypes - 1
+            end
+        end
+    end
+
+    ----- MAGE -----
+    if (UnitClass("player") == "Mage") then
+        rootDescription:CreateDivider()
+        local teleports = rootDescription:CreateButton("Teleports")
+        local portals = rootDescription:CreateButton("Portals")
+
+        for _, spell in ipairs(TeleportData["ClassPorts"]["Mage"]["Teleports"]) do
+            if (HasSpell(spell["Spell"])) then
+                CreateTeleButton(teleports, "Spell", spell["Location"], spell["Spell"])
+            end
+        end
+
+        for _, spell in ipairs(TeleportData["ClassPorts"]["Mage"]["Portals"]) do
+            if (HasSpell(spell["Spell"])) then
+                CreateTeleButton(portals, "Spell", spell["Location"], spell["Spell"])
+            end
+        end
+    end
+
+    ----- ENGINEERING -----
+    if (HasSpell("Engineering") and HasAnyEngineering()) then
+        -- we want to make sure the player has at least 1 teleport toy and meets its requirements to use before displaying divider/button
+        -- GetProfessions() - returns spell tab indices of current professions
+        -- GetProfessionInfo(index) - returns profession details: name, icon, skillLevel, ...
+        rootDescription:CreateDivider()
+        local engineering = rootDescription:CreateButton("Engineering")
+
+        for skill, toy in ipairs(TeleportData["Engineering"]) do
+            if (HasSpell(skill)) then
+                -- TODO: get player's skill level and check if it's >= SkillReq
+            end
+        end
+    end
 end
 
 local Dropdown = CreateFrame("DropdownButton", nil, UIParent, "WowStyle1DropdownTemplate")
