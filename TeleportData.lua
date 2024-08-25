@@ -360,6 +360,9 @@ TeleportData["Hearthstones"] = {
 }
 
 TeleportData["ClassPorts"] = {
+    ["Druid"] = {
+        -- moonglade/emerald dreamway
+    },
     ["Mage"] = {
         ["Teleports"] = {
             [1] = {
@@ -585,15 +588,10 @@ TeleportData["ClassPorts"] = {
                 ["SpellID"] = 395289
             }
         }
+    },
+    ["Monk"] = {
+        -- zen pilgrimage
     }
-}
-
-TeleportData["DruidPorts"] = {
-    --
-}
-
-TeleportData["MonkPorts"] = {
-    -- zen pilgrimage
 }
 
 TeleportData["Engineering"] = {

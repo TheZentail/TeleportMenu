@@ -141,7 +141,7 @@ function HasToy(itemID)
 end
 
 function GetHearthstone()
-    if (HasItem("Hearthstone")) then
+    if (HasItem(TeleportData["Hearthstones"]["Hearthstone"])) then
         return "Hearthstone"
     else
         for name, id in pairs(TeleportData["Hearthstones"]) do
@@ -154,19 +154,70 @@ function GetHearthstone()
     return "No Stone Found"
 end
 
-function CreateTeleButton(menu, btnType, btnName, spellName)
-    -- will add thorough support for btnType later
+function GetItemCooldown(itemID)
+    local start, duration, enable = C_Item.GetItemCooldown(itemID)
 
+    if enable then
+        local remaining = duration - (GetTime() - start)
+        remaining = math.floor(remaining + 0.5)
+        return remaining
+    end
+
+    return 0
+end
+
+function GetSpellCooldown(spell)
+    --
+end
+
+function ConvertSecondsToString(seconds)
+    local hours = math.floor(seconds / 3600)
+    local minutes = math.floor((seconds % 3600) / 60)
+    local seconds = math.floor(seconds % 60)
+
+    local timeString = ""
+
+    if hours > 0 then
+        timeString = timeString .. hours .. "h "
+    end
+
+    if minutes > 0 then
+        timeString = timeString .. minutes .. "m "
+    end
+
+    if seconds > 0 then
+        timeString = timeString .. seconds .. "s"
+    end
+
+    return timeString
+end
+
+function CreateTeleButton(menu, btnType, btnName, spellName)
     local btnFrame = menu:CreateTemplate("SecureActionButtonTemplate")
     btnFrame:AddInitializer(function(btn, desc, menu)
         btn:SetText(btnName)
         btn:GetFontString():SetPoint("LEFT", 0, 0)
         btn:SetNormalFontObject("GameFontNormal")
         btn:SetHighlightFontObject("GameFontHighlight")
+
+        local cooldown = 0
+        if btnType ~= "Spell" then
+            cooldown = GetItemCooldown(spellName)
+        end
+
+        if cooldown > 0 then
+            btn:SetText(btnName .. " (" .. ConvertSecondsToString(cooldown) .. ")")
+            btn:GetFontString():SetTextColor(0.5, 0.5, 0.5)
+        else
+            -- set default bronze color
+            btn:GetFontString():SetTextColor(1, 0.82, 0)
+        end
+
         -- btn:SetNormalTexture("Interface/Buttons/UI-Panel-Button-Up")
         -- btn:SetHighlightTexture("Interface/Buttons/UI-Panel-Button-Highlight")
         -- btn:SetPushedTexture("Interface/Buttons/UI-Panel-Button-Down")
         -- btn:SetDisabledTexture("Interface/Buttons/UI-Panel-Button-Disabled")
+
         btn:SetAttribute("type", "macro")
         btn:SetAttribute("macrotext", "/cast " .. spellName)
         btn:RegisterForClicks("AnyUp", "AnyDown")
@@ -178,10 +229,8 @@ end
 
 function CreateHearthstoneButton(menu)
     local hearthstone = GetHearthstone()
-    if (hearthstone == "No Stone Found") then
-        print("none found")
-        return
-    end
+    if (hearthstone == "No Stone Found") then return end
+    local cooldown = GetItemCooldown(hearthstone)
 
     local btnFrame = menu:CreateTemplate("SecureActionButtonTemplate")
     btnFrame:AddInitializer(function(btn, desc, menu)
@@ -189,6 +238,15 @@ function CreateHearthstoneButton(menu)
         btn:GetFontString():SetPoint("LEFT", 0, 0)
         btn:SetNormalFontObject("GameFontNormal")
         btn:SetHighlightFontObject("GameFontHighlight")
+
+        if cooldown > 0 then
+            btn:SetText("Hearthstone (" .. ConvertSecondsToString(cooldown) .. ")")
+            btn:GetFontString():SetTextColor(0.5, 0.5, 0.5)
+        else
+            -- set default bronze color
+            btn:GetFontString():SetTextColor(1, 0.82, 0)
+        end
+
         btn:SetAttribute("type", "macro")
         btn:SetAttribute("macrotext", "/cast " .. hearthstone)
         btn:RegisterForClicks("AnyUp", "AnyDown")
@@ -199,9 +257,12 @@ function CreateHearthstoneButton(menu)
 end
 
 function BuildMenu(dropdown, rootDescription)
+    ----- TEST FUNCTIONS -----
+    GetItemCooldown(140192)
+
     ----- HEARTHSTONE -----
     CreateHearthstoneButton(rootDescription)
-    if (PlayerHasToy(212337)) then CreateSpellButton(rootDescription, "Stone Hearth", "Stone of the Hearth") end
+    if (PlayerHasToy(212337)) then CreateTeleButton(rootDescription, "Spell", "Stone Hearth", "Stone of the Hearth") end
 
     if HasAnyDungeons() or HasAnyRaids() then
         rootDescription:CreateDivider()
