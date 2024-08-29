@@ -474,6 +474,11 @@ TeleportData["ClassPorts"] = {
                 ["Spell"] = "Teleport: Valdrakken",
                 ["Location"] = "Valdrakken",
                 ["SpellID"] = 395277
+            },
+            [23] = {
+                ["Spell"] = "Teleport: Dornogal",
+                ["Location"] = "Dornogal",
+                ["SpellID"] = 446540
             }
         },
         ["Portals"] = {
@@ -586,6 +591,11 @@ TeleportData["ClassPorts"] = {
                 ["Spell"] = "Portal: Valdrakken",
                 ["Location"] = "Valdrakken",
                 ["SpellID"] = 395289
+            },
+            [23] = {
+                ["Spell"] = "Portal: Dornogal",
+                ["Location"] = "Dornogal",
+                ["SpellID"] = 446534
             }
         }
     },
