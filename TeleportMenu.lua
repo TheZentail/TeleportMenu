@@ -371,21 +371,29 @@ function BuildMenu(dropdown, rootDescription)
         end
     end
 
-    ----- MAGE -----
-    if (UnitClass("player") == "Mage") then
-        rootDescription:CreateDivider()
-        local teleports = rootDescription:CreateButton("Teleports")
-        local portals = rootDescription:CreateButton("Portals")
+    ----- CLASS TELEPORTS -----
+    for class, ports in pairs(TeleportData["ClassPorts"]) do
+        if class == UnitClass("player") then
+            rootDescription:CreateDivider()
+            -- check if Teleports is in ports
+            if ports["Teleports"] then
+                local classPorts = rootDescription:CreateButton("Class Teleports")
 
-        for _, spell in ipairs(TeleportData["ClassPorts"]["Mage"]["Teleports"]) do
-            if (HasSpell(spell["Spell"])) then
-                CreateTeleButton(teleports, "Spell", spell["Location"], spell["Spell"])
+                for _, spell in ipairs(ports["Teleports"]) do
+                    if HasSpell(spell["Spell"]) then
+                        CreateTeleButton(classPorts, "Spell", spell["Location"], spell["Spell"])
+                    end
+                end
             end
-        end
 
-        for _, spell in ipairs(TeleportData["ClassPorts"]["Mage"]["Portals"]) do
-            if (HasSpell(spell["Spell"])) then
-                CreateTeleButton(portals, "Spell", spell["Location"], spell["Spell"])
+            if ports["Portals"] then
+                local classPorts = rootDescription:CreateButton("Class Portals")
+
+                for _, spell in ipairs(ports["Portals"]) do
+                    if HasSpell(spell["Spell"]) then
+                        CreateTeleButton(classPorts, "Spell", spell["Location"], spell["Spell"])
+                    end
+                end
             end
         end
     end

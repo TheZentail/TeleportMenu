@@ -360,8 +360,28 @@ TeleportData["Hearthstones"] = {
 }
 
 TeleportData["ClassPorts"] = {
+    ["Death Knight"] = {
+        ["Portals"] = {
+            [1] = {
+                ["Spell"] = "Death Gate",
+                ["Location"] = "Acherus: The Ebon Hold",
+                ["SpellID"] = 50977
+            }
+        }
+    },
     ["Druid"] = {
-        -- moonglade/emerald dreamway
+        ["Teleports"] = {
+            [1] = {
+                ["Spell"] = "Teleport: Moonglade",
+                ["Location"] = "Moonglade",
+                ["SpellID"] = 18960
+            },
+            [2] = {
+                ["Spell"] = "Dreamwalk",
+                ["Location"] = "Emerald Dreamway",
+                ["SpellID"] = 193753
+            }
+        }
     },
     ["Mage"] = {
         ["Teleports"] = {
@@ -600,7 +620,13 @@ TeleportData["ClassPorts"] = {
         }
     },
     ["Monk"] = {
-        -- zen pilgrimage
+        ["Teleports"] = {
+            [1] = {
+                ["Spell"] = "Zen Pilgrimage",
+                ["Location"] = "Peak of Serenity",
+                ["SpellID"] = 126892
+            }
+        }
     }
 }
 
